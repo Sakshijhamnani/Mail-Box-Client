@@ -19,6 +19,17 @@ export const sendMailData=(newMailData)=>{
             } else {
                 console.log('Mail Sent');
             }
+
+            const data=await response.json();
+
+            return data;
+    }
+    try{
+        const sentData=await sendData();
+        console.log(sentData);
+
+    }catch(error){
+        console.log(error.message)
     }
 }
 }

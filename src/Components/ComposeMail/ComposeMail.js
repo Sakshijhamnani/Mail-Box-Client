@@ -44,25 +44,7 @@ function ComposeMail() {
             
         }
 
-        // dispatch(sendMailData(newDetails))
-
-
-        const response = await fetch(`https://mail-client-box-5531a-default-rtdb.firebaseio.com/${newDetails.to}.json`, {
-            method: 'PUT',
-            body: JSON.stringify(newDetails),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-    
-        if (!response.ok) {
-            console.error('Failed to send mail');
-        } else {
-            console.log('Mail Sent');
-        }
-      
-        
-        
+        dispatch(sendMailData(newDetails))        
 
     }
 
