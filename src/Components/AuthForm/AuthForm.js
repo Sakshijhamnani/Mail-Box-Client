@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
+import { loginUser } from '../store/AuthSice';
 
 function AuthForm() {
     const [email,setEmail]=useState('')
     const [password,setPassword]=useState('')
     const [confirmPassword,setConfirmPassword]=useState('')
     const [logIn,setLogIn]=useState(false)
+    const dispatch=useDispatch();
 
     const navigate=useNavigate();
 
@@ -53,17 +56,12 @@ function AuthForm() {
               })
               .then(data => {
                
-                localStorage.setItem('token', data.idToken);
-                localStorage.setItem('email', details.email);
-          
-                
-              
-          
-              
-              
-          
-               
-                 navigate('/welcome');
+                // localStorage.setItem('token', data.idToken);
+                // localStorage.setItem('email', details.email);
+
+                dispatch(loginUser([data.idToken,details.email]))
+
+                navigate('/welcome');
               })
               .catch(error => {
                 console.error('Error during login:', error);
