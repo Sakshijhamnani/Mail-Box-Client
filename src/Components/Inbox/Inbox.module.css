@@ -1,0 +1,31 @@
+.div{
+    display: flex;
+}
+.firstLine{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+.email{
+    margin-right: 130vh;
+}
+.secondLine{
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: first baseline;
+}
+.subject{
+    margin-right: 5vh;
+}
+.li{
+    list-style: none;
+    border: 2px solid rgb(248, 250, 252);
+    margin-left: 6vh;
+    padding: 8px;
+    border-radius: 1rem;
+    background-color: rgb(237, 242, 246);
+    /* font-family: Georgia, 'Times New Roman', Times, serif; */
+}
+.li{
+    margin: 2rem;
+}

@@ -33,7 +33,7 @@ function ComposeMail() {
         const email=localStorage.getItem('email')
         
 
-        let id=Math.random().toString();
+        let id=Date.now().toString();
         const newDetails={
             from:email,
             to:newSendEmail,

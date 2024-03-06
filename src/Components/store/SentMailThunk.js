@@ -1,3 +1,6 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+
 export const sendMailData=(newMailData)=>{
     console.log('calling Thunk form submit Handler')
     const sendemail=newMailData.to;
@@ -7,7 +10,7 @@ export const sendMailData=(newMailData)=>{
     return async (dispatch) =>{
         const sendData=async()=>{
             const response = await fetch(`https://mail-client-box-5531a-default-rtdb.firebaseio.com/${newSendEmail}.json`, {
-                method: 'PUT',
+                method: 'POST',
                 body: JSON.stringify(newMailData),
                 headers: {
                     'Content-Type': 'application/json'
@@ -18,6 +21,7 @@ export const sendMailData=(newMailData)=>{
                 console.error('Failed to send mail');
             } else {
                 console.log('Mail Sent');
+                console.log(newMailData.id)
             }
 
             const data=await response.json();
@@ -33,3 +37,5 @@ export const sendMailData=(newMailData)=>{
     }
 }
 }
+
+
