@@ -17,8 +17,12 @@ export const mailSlice=createSlice({
         increaseCount: (state, action) => {
             state.count = action.payload;
           },
+        deleteItem:(state,action)=>{
+            const id = action.payload;
+            state.items = state.items.filter((item) => item.id !== id);
+        }
     }
 })
 
-export const {viewMail,increaseCount}=mailSlice.actions
+export const {viewMail,increaseCount,deleteItem}=mailSlice.actions
 export default mailSlice.reducer

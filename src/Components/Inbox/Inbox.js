@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import classes from './Inbox.module.css';
 import SideBar from '../SideBar/SideBar';
 import { useDispatch, useSelector } from 'react-redux';
-import { increaseCount, viewMail } from '../store/MailSlice';
+import { deleteItem, increaseCount, viewMail } from '../store/MailSlice';
 import { Link, NavLink } from 'react-router-dom';
 
 const fetchData = async () => {
@@ -80,6 +80,38 @@ const Inbox = () => {
     }
   }
 
+  const deleteMailHandler=async(id)=>{
+  //  e.preventDefault();
+   console.log('Hi i m in dleete')
+   try {
+     const response = await fetch(
+       `https://mail-client-box-5531a-default-rtdb.firebaseio.com/${newEmail}/${id}.json`,
+       {
+         method: "DELETE",
+         headers: {
+           "Content-Type": "application/json",
+         },
+       }
+     );
+
+     if (!response.ok) {
+       throw new Error(`Failed to delete email (HTTP ${response.status})`);
+     }
+
+     const updatedData = items.filter((item) => item.idd !== id);
+     console.log('update data',updatedData)
+     console.log('item id',id)
+     console.log("hello")
+     setItems(updatedData);
+     dispatch(deleteItem(id));
+     
+
+   } catch (error) {
+     console.error(error.message);
+   }
+
+  }
+
   
   console.log('Outside reducer:', mailItems);
 
@@ -91,19 +123,23 @@ const Inbox = () => {
         <ul className={classes.ul}>
       
           {items.map((item, index) => (
-                <NavLink to={`maildetail/${item.id}`} onClick={()=>blueTickHandler(item.idd)}>
+              
             <li key={index} className={classes.li}>
               <div className={classes.firstLine}>
                 {item.blueTick && <p className={classes.blueTick}></p>}
+                <NavLink to={`maildetail/${item.id}`} onClick={()=>blueTickHandler(item.idd)}>
                 <h5  className={classes.email}>{item.from}</h5>
+                </NavLink>
                 <h6>{item.time}</h6>
               </div>
               <div className={classes.secondLine}>
                 <h6 className={classes.subject}>{item.subject}</h6>
                 <p>{item.content}</p>
+              
               </div>
+              <p onClick={()=>deleteMailHandler(item.idd)} style={{marginLeft: "90rem", zIndex: "1",cursor:"pointer"}}>🗑️</p>
             </li>
-                </NavLink>
+               
           ))}
        
         </ul>
