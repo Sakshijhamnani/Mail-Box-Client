@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import classes from './Inbox.module.css';
 import SideBar from '../SideBar/SideBar';
+import { useDispatch, useSelector } from 'react-redux';
+import { increaseCount, viewMail } from '../store/MailSlice';
+import { Link, NavLink } from 'react-router-dom';
 
 const fetchData = async () => {
   const email = localStorage.getItem('email');
@@ -18,19 +21,67 @@ const fetchData = async () => {
     return;
   }
 
-  const existingItems = await response.json();
-  return existingItems ? Object.values(existingItems) : [];
+  const data = await response.json();
+  // return existingItems ? Object.values(existingItems):[] ;
+  if (data && typeof data === "object") {
+    const dataArray = Object.entries(data).map(([idd, entry]) => ({
+      idd,
+      ...entry,
+    }));
+    return dataArray
+  } else {
+    return []
+  }
 };
 
 const Inbox = () => {
-  const [items, setItems] = useState(['hey']);
+  const [items, setItems] = useState([]);
+  const dispatch = useDispatch();
+  const mailItems = useSelector(state => state.mail.items);
+  const email = localStorage.getItem('email');
+     const newEmail = email.replace(/[^\w\s]/gi, '');
 
   useEffect(() => {
     fetchData().then((data) => {
       setItems(data);
-      console.log(items)
+      dispatch(viewMail(data));
     });
-  }, []); // Empty dependency array means this effect runs only once when component mounts
+  }, []); 
+
+  useEffect(() => {
+    const blueTickCount = items.filter((item) => item.blueTick).length;
+    dispatch(increaseCount(blueTickCount));
+  }, [items, dispatch]);
+
+  const blueTickHandler=async(id)=>{
+    try {
+      const response = await fetch(
+        `https://mail-client-box-5531a-default-rtdb.firebaseio.com/${newEmail}/${id}.json`,
+        {
+          method: "PATCH",
+          body: JSON.stringify({
+            blueTick: false,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error(`Failed to update blue tick (HTTP ${response.status})`);
+      }
+      setItems((prevData) =>
+        prevData.map((item) =>
+          item.idd === id ? { ...item, blueTick: false } : item
+        )
+      );
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+
+  
+  console.log('Outside reducer:', mailItems);
 
   return (
     <div className={classes.div}>
@@ -38,10 +89,13 @@ const Inbox = () => {
       <div className={classes.inbox}>
         <h1>Inbox</h1>
         <ul className={classes.ul}>
+      
           {items.map((item, index) => (
+                <NavLink to={`maildetail/${item.id}`} onClick={()=>blueTickHandler(item.idd)}>
             <li key={index} className={classes.li}>
               <div className={classes.firstLine}>
-                <h5 className={classes.email}>{item.from}</h5>
+                {item.blueTick && <p className={classes.blueTick}></p>}
+                <h5  className={classes.email}>{item.from}</h5>
                 <h6>{item.time}</h6>
               </div>
               <div className={classes.secondLine}>
@@ -49,10 +103,11 @@ const Inbox = () => {
                 <p>{item.content}</p>
               </div>
             </li>
+                </NavLink>
           ))}
+       
         </ul>
       </div>
-      {/* <button onClick={()=>fetchData()}>Fetch</button> */}
     </div>
   );
 };

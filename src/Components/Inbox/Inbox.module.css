@@ -23,9 +23,20 @@
     margin-left: 6vh;
     padding: 8px;
     border-radius: 1rem;
-    background-color: rgb(237, 242, 246);
+    background-color: rgb(248, 249, 250);
     /* font-family: Georgia, 'Times New Roman', Times, serif; */
 }
 .li{
     margin: 2rem;
 }
+.blueTick {
+    width: 20px;
+    height: 12px;
+    background-color: blue;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px; 
+    position: relative;
+    top: 5px;
+  }
+  

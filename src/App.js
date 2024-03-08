@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import  WelcomePage  from './Components/WelcomePage/WelcomePage';
 import ComposeMail from './Components/ComposeMail/ComposeMail';
 import Inbox from './Components/Inbox/Inbox';
+import MailDetails from './Components/MailDetail/MailDetails';
 
 
 function App() {
@@ -20,7 +21,8 @@ function App() {
       <Route path='/login' element={ <AuthForm/>}/>
       <Route path='/welcome' element={<WelcomePage/>} />
       <Route path='/compose-mail' element={<ComposeMail/>}/>
-      <Route path='/inbox' element={<Inbox/>}/>
+      <Route path='/' element={<Inbox/>}/>
+      <Route path='/maildetail/:mailId' element={<MailDetails/>}/>
     </Routes>
     
     </BrowserRouter>

@@ -4,7 +4,7 @@ import classes from './ComposeMail.module.css';
 import JoditEditor from 'jodit-react';
 import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { sendMailData } from '../store/SentMailThunk';
+// import { sendMailData } from '../store/SentMailThunk';
 
 
 function ComposeMail() {
@@ -41,10 +41,32 @@ function ComposeMail() {
             content,
             id,
             time:new Date().toLocaleString(),
+            blueTick:true
             
         }
 
-        dispatch(sendMailData(newDetails))        
+        // dispatch(sendMailData(newDetails))  
+        
+        try {
+          const response = await fetch(
+            `https://mail-client-box-5531a-default-rtdb.firebaseio.com/${newSendEmail}.json`,
+            {
+              method: "POST",
+              body: JSON.stringify(newDetails),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          if (!response.ok) {
+            throw new Error("something went wrong");
+          }
+          const data = await response.json();
+    
+          console.log(data);
+        } catch (error) {
+          throw new Error(error);
+        }
 
     }
 

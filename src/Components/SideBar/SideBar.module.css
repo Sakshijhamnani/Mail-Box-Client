@@ -1,7 +1,7 @@
 .div{
     border-right:2px solid rgb(208, 207, 207) ;
     width: 17vw;
-    height: 92.5vh;
+    height: 100vh;
     
 }
 .ul{
@@ -22,4 +22,20 @@
 }
 .li:hover{
     background-color: rgb(178, 228, 244);
+}
+.count{
+    width: 20px;
+    height: 20px;
+    background-color: rgb(145, 145, 243);
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px; 
+    position: relative;
+    top: 8px;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: white;
 }
