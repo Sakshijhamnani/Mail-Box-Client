@@ -30,7 +30,9 @@ function ComposeMail() {
         console.log('In submit handler')
         
         const newSendEmail=to.replace(/[^\w\s]/gi, "");
-        const email=localStorage.getItem('email')
+
+        const email=localStorage.getItem('email');
+        const sendMail2=email.replace(/[^\w\s]/gi, "");
         
 
         let id=Date.now().toString();
@@ -50,6 +52,28 @@ function ComposeMail() {
         try {
           const response = await fetch(
             `https://mail-client-box-5531a-default-rtdb.firebaseio.com/${newSendEmail}.json`,
+            {
+              method: "POST",
+              body: JSON.stringify(newDetails),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          if (!response.ok) {
+            throw new Error("something went wrong");
+          }
+          const data = await response.json();
+    
+          console.log(data);
+        } catch (error) {
+          throw new Error(error);
+        }
+
+
+        try {
+          const response = await fetch(
+            `https://mail-client-box-5531a-default-rtdb.firebaseio.com/${sendMail2}sent.json`,
             {
               method: "POST",
               body: JSON.stringify(newDetails),

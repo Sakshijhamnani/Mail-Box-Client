@@ -8,6 +8,9 @@ import  WelcomePage  from './Components/WelcomePage/WelcomePage';
 import ComposeMail from './Components/ComposeMail/ComposeMail';
 import Inbox from './Components/Inbox/Inbox';
 import MailDetails from './Components/MailDetail/MailDetails';
+import SideBar from './Components/SideBar/SideBar';
+import SentMail from './Components/SentMail/SentMail';
+import SentMailDetail from './Components/sentMailDetail/sentMailDetail';
 
 
 function App() {
@@ -23,6 +26,8 @@ function App() {
       <Route path='/compose-mail' element={<ComposeMail/>}/>
       <Route path='/' element={<Inbox/>}/>
       <Route path='/maildetail/:mailId' element={<MailDetails/>}/>
+      <Route path='/sent-mail' element={<SentMail/>}/>
+      <Route path='/sent-mail/:sentmailId' element={<SentMailDetail/>}/>
     </Routes>
     
     </BrowserRouter>
