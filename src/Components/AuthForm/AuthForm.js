@@ -61,7 +61,7 @@ function AuthForm() {
 
                 dispatch(loginUser([data.idToken,details.email]))
 
-                navigate('/welcome');
+                navigate('/');
               })
               .catch(error => {
                 console.error('Error during login:', error);

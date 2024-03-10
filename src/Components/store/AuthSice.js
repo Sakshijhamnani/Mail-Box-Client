@@ -17,6 +17,7 @@ export const authSlice=createSlice({
             state.email=action.payload[1];
             localStorage.setItem('token',state.token);
             localStorage.setItem('email',state.email);
+            localStorage.setItem('isLogin',true)
         },
         logoutUser :(state)=>{
             state.isLogin=false;
@@ -24,6 +25,7 @@ export const authSlice=createSlice({
             state.email=null;
             localStorage.removeItem('token');
             localStorage.removeItem('email');
+            localStorage.removeItem('isLogin')
         }
      }
 });

@@ -92,6 +92,10 @@ function ComposeMail() {
           throw new Error(error);
         }
 
+        setTo("");
+        setSubject("");
+        setContent("");
+
     }
 
   return (

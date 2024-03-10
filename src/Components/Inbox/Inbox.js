@@ -127,7 +127,7 @@ const Inbox = () => {
             <li key={index} className={classes.li}>
               <div className={classes.firstLine}>
                 {item.blueTick && <p className={classes.blueTick}></p>}
-                <NavLink to={`maildetail/${item.id}`} onClick={()=>blueTickHandler(item.idd)}>
+                <NavLink to={`maildetail/${item.id}`} onClick={()=>blueTickHandler(item.idd)} className={classes.NavLink}>
                 <h5  className={classes.email}>{item.from}</h5>
                 </NavLink>
                 <h6>{item.time}</h6>

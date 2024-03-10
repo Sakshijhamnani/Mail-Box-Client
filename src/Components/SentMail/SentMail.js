@@ -95,7 +95,7 @@ const SentMail = () => {
                     <li key={index}  className={classes.li}>
                     <div className={classes.firstLine}>
                  
-                     <NavLink to={`${item.id}`}>
+                     <NavLink to={`${item.id}`} className={classes.NavLink}>
                       <h5  className={classes.email}>{item.to}</h5>
                       </NavLink>
                    
