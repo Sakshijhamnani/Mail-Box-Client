@@ -164,7 +164,7 @@ function AuthForm() {
      {logIn && <p onClick={switchToggleHander}>Forgot password</p>}
       </Form.Text>
       <Form.Text  muted>
-     {!logIn ?<p onClick={switchToggleHander}>Already have an Account ? login</p>:<p onClick={switchToggleHander}>Don't have an account ? signup</p>}
+     {!logIn ?<p style={{cursor:"pointer"}} onClick={switchToggleHander}>Already have an Account ? login</p>:<p style={{cursor:"pointer"}} onClick={switchToggleHander}>Don't have an account ? signup</p>}
       </Form.Text>
     
    { !logIn ?<Button variant="primary" type="submit">
